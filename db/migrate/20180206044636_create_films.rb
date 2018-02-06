@@ -5,7 +5,6 @@ class CreateFilms < ActiveRecord::Migration[5.1]
       t.text :description
       t.string :url_slug
       t.string :year
-      t.text :related_film_ids, array: true, default: []
 
       t.timestamps
     end
