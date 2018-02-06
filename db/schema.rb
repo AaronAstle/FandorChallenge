@@ -23,14 +23,14 @@ ActiveRecord::Schema.define(version: 20180206071453) do
   end
 
   create_table "ratings", force: :cascade do |t|
-    t.integer "rating"
+    t.integer "rating_value"
     t.text "comment"
-    t.integer "film_id_id"
-    t.integer "user_id_id"
+    t.integer "film_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["film_id_id"], name: "index_ratings_on_film_id_id"
-    t.index ["user_id_id"], name: "index_ratings_on_user_id_id"
+    t.index ["film_id"], name: "index_ratings_on_film_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
 end

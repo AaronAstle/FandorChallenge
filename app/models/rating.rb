@@ -3,5 +3,5 @@ class Rating < ApplicationRecord
   belongs_to :film
 
   # Validationg
-  validates_presence_of :rating
+  validates_presence_of :rating_value, :film_id
 end
