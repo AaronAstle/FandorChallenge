@@ -67,8 +67,8 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  # Use FactoryGirl
-  config.include FactoryGirl::Syntax::Methods
+  # Use FactoryBot
+  config.include FactoryBot::Syntax::Methods
 
   # Database Cleaner
   config.before(:suite) do
@@ -82,7 +82,5 @@ RSpec.configure do |config|
       example.run
     end
   end
-
-
 
 end
