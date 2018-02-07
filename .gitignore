@@ -1,5 +1,11 @@
+# OS
+.env
 .DS_Store
+.ruby-version
+*/.ruby-version
+
 **/*.sqlite3
 
-log/*.log
+log/
+tmp/
 
