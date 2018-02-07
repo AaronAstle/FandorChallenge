@@ -71,6 +71,7 @@ RSpec.configure do |config|
 
   # Use FactoryBot
   config.include FactoryBot::Syntax::Methods
+  # Json Helper
   config.include RequestSpecHelper, type: :request
 
   # Database Cleaner

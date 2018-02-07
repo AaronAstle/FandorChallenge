@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Films API', type: :request do
-  let!(:films) { create_film(:film, 10) }
+  let!(:films) { create_list(:film, 10) }
   let(:film_id) { films.first.id }
 
   describe 'Get /films' do
@@ -18,7 +18,7 @@ RSpec.describe 'Films API', type: :request do
   end
 
   describe 'GET /films/:id' do
-    before { get '/films/#{film_id}' }
+    before { get "/films/#{film_id}" }
 
     context 'When a record exists' do
       it 'returns the film' do
@@ -39,7 +39,7 @@ RSpec.describe 'Films API', type: :request do
       end
 
       it 'Returns a "Not Found" message' do
-        expect(response.body).to match(/Film Could not be found/)
+        expect(response.body).to match(/Couldn't find Film/)
       end
     end
   end
@@ -71,7 +71,7 @@ RSpec.describe 'Films API', type: :request do
       end
 
       it 'Returns a "Failure" Message' do
-        expect(response.body).to match(/Failed: Missing fields/)
+        expect(response.body).to match(/can't be blank/)
       end
     end
   end
@@ -80,7 +80,7 @@ RSpec.describe 'Films API', type: :request do
     let(:valid_attributes) { { title: 'Spaceballs' } }
 
     context 'When a matching record exists' do
-      before { put '/films/#{film_id}', params: valid_attributes }
+      before { put "/films/#{film_id}", params: valid_attributes }
 
       it 'Updates the record' do
         expect(response.body).to be_empty
@@ -93,7 +93,7 @@ RSpec.describe 'Films API', type: :request do
   end
 
   describe 'DELETE /films/:id' do
-    before { delete '/films/#{film.id}' }
+    before { delete "/films/#{film_id}" }
 
     it 'Returns a 204 Status Code' do
       expect(response).to have_http_status(204)
