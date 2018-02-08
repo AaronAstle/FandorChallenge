@@ -5,8 +5,8 @@ RSpec.describe AuthorizeApiRequest do
   let(:user) { create(:user) }
   let(:header) { { 'Authorization' => token_generator(user.id) } }
 
-  subject(:request_obj) { described_class.new(header) }
   subject(:invalid_req_obj) { described_class.new({}) }
+  subject(:request_obj) { described_class.new(header) }
 
   describe 'Request Call' do
 
@@ -18,10 +18,10 @@ RSpec.describe AuthorizeApiRequest do
     end
 
     context 'Invalid Requests' do
-
       context 'when missing token' do
         it 'Raises a MissingToken' do
-          expect(invalid_req_obj.call).to raise_error(ExceptionHandler::MissingToken, /Missing token/)
+          expect { invalid_req_obj.call }
+            .to raise_error(ExceptionHandler::MissingToken, /Missing token/)
         end
       end
 
@@ -31,20 +31,18 @@ RSpec.describe AuthorizeApiRequest do
         end
 
         it 'Raises InvalidToken' do
-          expect(invalid_req_obj).to raise_error(
-            ExceptionHandler::InvalidToken, /Invlaid Token/
-          )
+          expect { invalid_req_obj.call }
+            .to raise_error(ExceptionHandler::InvalidToken, /Invalid token/)
         end
       end
 
       context 'Taken Expired' do
-        let(:header) { { 'Authorization' => expired_token_generator(user_id) } }
+        let(:header) { { 'Authorization' => expired_token_generator(user.id) } }
         subject(:request_obj) { described_class.new(header) }
 
         it 'Raises Expired error' do
-          expect(request_obj.call).to raise_error(
-            ExceptionHandler::InvalidToken, /expired/
-          )
+          expect{ request_obj.call }
+            .to raise_error(ExceptionHandler::InvalidToken, /expired/)
         end
       end
 
@@ -53,9 +51,8 @@ RSpec.describe AuthorizeApiRequest do
         subject(:invlaid_req_obj) { described_class.new(header) }
 
         it 'Throws to JWT for exception' do
-          expect(invalid_req_obj.call).to raise_error(
-            ExceptionHandler::InvalidToken, /Not enough or too many segments/
-          )
+          expect{ invalid_req_obj.call}
+            .to raise_error(ExceptionHandler::InvalidToken, /Not enough or too many segments/)
         end
       end
     end
