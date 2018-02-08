@@ -56,6 +56,7 @@ RSpec.describe 'Films API', type: :request do
 
       it 'Creates a Film' do
         expect(json['title']).to eq('Star Wars')
+        expect(json['url_slug']).to eq('star_wars')
       end
 
       it 'Returns a 201 Status Code' do
