@@ -38,20 +38,20 @@ RSpec.describe AuthorizeApiRequest do
 
       context 'Taken Expired' do
         let(:header) { { 'Authorization' => expired_token_generator(user.id) } }
-        subject(:request_obj) { described_class.new(header) }
+        subject(:request_obj2) { described_class.new(header) }
 
         it 'Raises Expired error' do
-          expect{ request_obj.call }
+          expect{ request_obj2.call }
             .to raise_error(ExceptionHandler::InvalidToken, /expired/)
         end
       end
 
       context 'Imposter Token' do
-        let(:header) { { 'Authorizatoin' => 'foobar' } }
-        subject(:invlaid_req_obj) { described_class.new(header) }
+        let(:header) { { 'Authorization' => 'foobar' } }
+        subject(:invalid_req_obj) { described_class.new(header) }
 
         it 'Throws to JWT for exception' do
-          expect{ invalid_req_obj.call}
+          expect{ invalid_req_obj.call }
             .to raise_error(ExceptionHandler::InvalidToken, /Not enough or too many segments/)
         end
       end
