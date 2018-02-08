@@ -74,6 +74,9 @@ RSpec.configure do |config|
   # Json Helper
   config.include RequestSpecHelper, type: :request
 
+  config.include RequestSpecHelper
+  config.include ControllerSpecHelper
+
   # Database Cleaner
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
