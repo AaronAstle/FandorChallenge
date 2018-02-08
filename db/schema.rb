@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20180208080151) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "related_film_ids"
+    t.integer "created_by"
   end
 
   create_table "ratings", force: :cascade do |t|

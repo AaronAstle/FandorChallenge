@@ -3,7 +3,7 @@ class Film < ApplicationRecord
 
   has_many :ratings, dependent: :destroy
 
-  validates_presence_of :title, :description, :year, :created_by, :url_slug
+  validates_presence_of :title, :description, :year, :created_by
 
   def average_rating
     ratings.sum(:rating_value).to_f / ratings.count
