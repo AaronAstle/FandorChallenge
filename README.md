@@ -101,3 +101,10 @@ you to run the test suite.
 - `$ rails db:migrate RAILS_END=test`
 - `$ bundle exec rspec`
 
+
+## Notes
+
+Thank you for the opportunity to share my skill in this challenge.  I look
+forward to dicussing the challenge.
+
+-Aaron Astle
