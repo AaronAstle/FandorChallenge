@@ -98,7 +98,7 @@ been written for alomst all of the API.  The following steps will help
 you to run the test suite.
 
 - `$ bundle install`
-- `$ rails db:migrate RAILS_END=test`
+- `$ rails db:migrate RAILS_ENV=test`
 - `$ bundle exec rspec`
 
 
