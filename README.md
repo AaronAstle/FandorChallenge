@@ -1,24 +1,8 @@
-# README
+# Fandor Coding Challenge
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Rails API for viewing film details and ratings.  Users can log in to
+create a film or to rate a film.
 
-Things you may want to cover:
+## Getting up and running
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Clone this repo then follow the steps below.  

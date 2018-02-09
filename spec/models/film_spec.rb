@@ -11,7 +11,6 @@ RSpec.describe Film, type: :model do
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:description) }
   it { should validate_presence_of(:year) }
-  it { should validate_presence_of(:url_slug) }
   it { should validate_presence_of(:created_by) }
 
   describe 'Average Rating for Film' do

@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Films API', type: :request do
-  let!(:films) { create_list(:film, 10) }
+  let(:user) { create(:user) }
+  let!(:films) { create_list(:film, 10, created_by: user.id) }
   let(:film_id) { films.first.id }
+  let(:headers) { valid_headers }
 
   describe 'Get /films' do
-    before { get '/films' }
+    before { get '/films', params: {}, headers: headers }
 
     it 'Returns Films' do
       expect(json).not_to be_empty
@@ -18,7 +20,7 @@ RSpec.describe 'Films API', type: :request do
   end
 
   describe 'GET /films/:id' do
-    before { get "/films/#{film_id}" }
+    before { get "/films/#{film_id}", params: {}, headers: headers }
 
     context 'When a record exists' do
       it 'returns the film' do
@@ -45,14 +47,17 @@ RSpec.describe 'Films API', type: :request do
   end
 
   describe 'POST /films' do
-    let(:valid_attributes) { {
-      title: 'Star Wars',
-      year: '1984',
-      description: "A story in a far away galaxy.",
-      created_by: 1 } }
+    let(:valid_attributes) do
+      {
+        title: 'Star Wars',
+        year: '1984',
+        description: "A story in a far away galaxy.",
+        created_by: user.id.to_s
+      }.to_json
+    end
 
     context 'Valid POST' do
-      before { post '/films', params: valid_attributes }
+      before { post '/films', params: valid_attributes, headers: headers }
 
       it 'Creates a Film' do
         expect(json['title']).to eq('Star Wars')
@@ -65,23 +70,28 @@ RSpec.describe 'Films API', type: :request do
     end
 
     context 'Invalid POST' do
-      before { post '/films', params: { title: 'Not the right Title' } }
+      let(:invalid_params) do
+        {
+          title: nil
+        }.to_json
+      end
+      before { post '/films', params: invalid_params, headers: headers }
 
       it 'Returns 422 Status Code' do
         expect(response).to have_http_status(422)
       end
 
       it 'Returns a "Failure" Message' do
-        expect(response.body).to match(/can't be blank/)
+        expect(json['message']).to match(/can't be blank/)
       end
     end
   end
 
   describe 'PUT /films/:id' do
-    let(:valid_attributes) { { title: 'Spaceballs' } }
+    let(:valid_attributes) { { title: 'Spaceballs' }.to_json }
 
     context 'When a matching record exists' do
-      before { put "/films/#{film_id}", params: valid_attributes }
+      before { put "/films/#{film_id}", params: valid_attributes, headers: headers }
 
       it 'Updates the record' do
         expect(response.body).to be_empty
@@ -94,7 +104,7 @@ RSpec.describe 'Films API', type: :request do
   end
 
   describe 'DELETE /films/:id' do
-    before { delete "/films/#{film_id}" }
+    before { delete "/films/#{film_id}", params: {}, headers: headers}
 
     it 'Returns a 204 Status Code' do
       expect(response).to have_http_status(204)

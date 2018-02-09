@@ -4,7 +4,7 @@ class CreateRatings < ActiveRecord::Migration[5.1]
       t.integer :rating_value
       t.text :comment
       t.references :film, foreign_key: true
-      t.references :user
+      t.references :user, foreign_key: true
 
       t.timestamps
     end

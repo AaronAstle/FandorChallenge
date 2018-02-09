@@ -1,5 +1,6 @@
 class FilmsController < ApplicationController
-  before_action :set_url_slug, only: [:create, :update]
+  skip_before_action :authorize_request, only: :index
+
   before_action :set_film, only: [:show, :update, :destroy]
 
   def index
@@ -8,8 +9,7 @@ class FilmsController < ApplicationController
   end
 
   def create
-    # puts film_params
-    @film = Film.create!(film_params)
+    @film = current_user.films.create!(film_params)
     json_response(@film, :created)
   end
 
@@ -30,11 +30,7 @@ class FilmsController < ApplicationController
   private
 
   def film_params
-    params.permit(:title, :description, :created_by, :year, :related_film_ids, :url_slug)
-  end
-
-  def set_url_slug
-    params[:url_slug] = params[:title].parameterize(separator: '_')
+    params.permit(:title, :description, :year, :related_film_ids, :url_slug)
   end
 
   def set_film

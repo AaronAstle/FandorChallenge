@@ -6,6 +6,7 @@ class FilmSerializer < ActiveModel::Serializer
     :url_slug,
     :related_film_ids,
     :average_rating,
+    :created_by,
     :updated_at
 
   has_many :ratings
