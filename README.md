@@ -104,7 +104,10 @@ you to run the test suite.
 
 ## Notes
 
+Some guidance from Scotch.io articles, Rspec Documentation, Active Model Docs and Stackoverflow.
+
 Thank you for the opportunity to share my skill in this challenge.  I look
 forward to dicussing the challenge.
+
 
 -Aaron Astle
